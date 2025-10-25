@@ -1,0 +1,26 @@
+version: 2
+
+models:
+  - name: fact_events
+    description: |
+      Fact model for the `events` source table.
+
+    columns:
+      - name: event_id
+        description: |
+          {{ doc("stg_events__event_id") }}
+        data_tests:
+          - not_null
+          - unique
+
+      - name: event_name
+        description: |
+          {{ doc("stg_events__event_name") }}
+
+      - name: user_id
+        description: |
+          {{ doc("stg_user_attributes__user_id") }}
+
+      - name: event_at
+        description: |
+          {{ doc("stg_events__event_at") }}

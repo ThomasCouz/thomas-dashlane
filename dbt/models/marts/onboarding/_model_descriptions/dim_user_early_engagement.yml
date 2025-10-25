@@ -1,0 +1,16 @@
+version: 2
+
+models:
+  - name: dim_user_early_engagement
+    description: |
+      Model at the user grain that contains early engagement data (on the first 7 days since user created) as well as 
+      the information whether the user is retained at week 4.
+      This model has been built to support the retention drivers analysis.
+
+    columns:
+      - name: user_id
+        description: |
+          {{ doc("stg_user_attributes__user_id") }}
+        data_tests:
+          - not_null
+          - unique

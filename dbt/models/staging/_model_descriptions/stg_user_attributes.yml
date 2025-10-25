@@ -1,0 +1,50 @@
+version: 2
+
+models:
+  - name: stg_user_attributes
+    description: |
+      Staging model for the `user_attributes` source table.
+    config:
+      contract:
+        enforced: true
+
+    columns:
+      - name: user_id
+        data_type: varchar
+        description: |
+          {{ doc("stg_user_attributes__user_id") }}
+        data_tests:
+          - not_null
+          - unique
+
+      - name: user_created_date
+        data_type: date
+        description: |
+          {{ doc("stg_user_attributes__user_created_date") }}
+        data_tests:
+          - not_null
+
+      - name: creation_app_platform
+        data_type: varchar
+        description: |
+          {{ doc("stg_user_attributes__creation_app_platform") }}
+        data_tests:
+          - not_null
+          - accepted_values:
+              values: ['saex', 'catalyst', 'android', 'web', 'ios']
+
+      - name: creation_app_source
+        data_type: varchar
+        description: |
+          {{ doc("stg_user_attributes__creation_app_source") }}
+        data_tests:
+          - not_null
+          - accepted_values:
+              values: ['Google Play', 'Desktop', 'App Store']
+
+      - name: is_retained_4_weeks
+        data_type: boolean
+        description: |
+          {{ doc("stg_user_attributes__is_retained_4_weeks") }}
+        data_tests:
+          - not_null

@@ -1,0 +1,11 @@
+venv/
+.idea/
+.env
+dbt/packages/
+dbt/logs/
+dbt/package-lock.yml
+dbt/target/
+data.egg-info/
+packages_dashlane.egg-info/
+**/__pycache__/**
+

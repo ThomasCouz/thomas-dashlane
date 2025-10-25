@@ -1,0 +1,22 @@
+version: 2
+
+sources:
+  - name: csv_files
+    database: dashlane
+    schema: raw
+
+    tables:
+      - name: events
+        # obviously the freshness test fails at the moment as we only have static csv files
+        freshness:
+          warn_after: { count: 1, period: hour }
+          error_after: { count: 2, period: hour }
+          filter: datediff('day', event_at::timestamp, current_timestamp) < 1 # no need to scan the entire table
+        loaded_at_field: event_at::timestamp # ideally we would prefer to use a system field like _etl_loaded_at
+
+      - name: user_attributes
+        # obviously the freshness test fails at the moment as we only have static csv files
+        freshness:
+          warn_after: { count: 1, period: day }
+          error_after: { count: 2, period: day }
+        loaded_at_field: user_created_on::timestamp # ideally we would prefer to use a system field like _etl_loaded_at

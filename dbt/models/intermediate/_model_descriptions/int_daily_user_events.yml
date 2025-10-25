@@ -1,0 +1,67 @@
+version: 2
+
+models:
+  - name: int_daily_user_events
+    description: |
+      Intermediate level at the day | user grain that contains events data.
+    config:
+      contract:
+        enforced: true
+
+    columns:
+      - name: unique_key
+        data_type: varchar
+        description: |
+          {{ doc("int_daily_user_events__unique_key") }}
+        data_tests:
+          - not_null
+          - unique
+
+      - name: reporting_date
+        data_type: date
+        description: |
+          {{ doc("int_daily_user_events__reporting_date") }}
+        data_tests:
+          - not_null
+
+      - name: user_id
+        data_type: varchar
+        description: |
+          {{ doc("stg_user_attributes__user_id") }}
+        data_tests:
+          - not_null
+
+      - name: cnt_total_events
+        data_type: integer
+        description: |
+          {{ doc("int_daily_user_events__cnt_total_events") }}
+
+      - name: cnt_add_new_password_to_vault_events
+        data_type: integer
+        description: |
+          {{ doc("int_daily_user_events__cnt_add_new_password_to_vault_events") }}
+
+      - name: cnt_add_new_personal_document_to_vault_events
+        data_type: integer
+        description: |
+          {{ doc("int_daily_user_events__cnt_add_new_personal_document_to_vault_events") }}
+
+      - name: cnt_generate_password_events
+        data_type: integer
+        description: |
+          {{ doc("int_daily_user_events__cnt_generate_password_events") }}
+
+      - name: cnt_add_new_payment_method_to_vault_events
+        data_type: integer
+        description: |
+          {{ doc("int_daily_user_events__cnt_add_new_payment_method_to_vault_events") }}
+
+      - name: cnt_perform_autofill_events
+        data_type: integer
+        description: |
+          {{ doc("int_daily_user_events__cnt_perform_autofill_events") }}
+
+      - name: cnt_log_in_to_dashlane_events
+        data_type: integer
+        description: |
+          {{ doc("int_daily_user_events__cnt_log_in_to_dashlane_events") }}

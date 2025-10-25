@@ -1,0 +1,14 @@
+version: 2
+
+models:
+  - name: int_users_f7d_features_usage
+    description: |
+      Intermediate model at the user grain that contains features usage data for the first 7 days since user created.
+
+    columns:
+      - name: user_id
+        description: |
+          {{ doc("stg_user_attributes__user_id") }}
+        data_tests:
+          - not_null
+          - unique

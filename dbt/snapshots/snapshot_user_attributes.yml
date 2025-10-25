@@ -1,0 +1,7 @@
+version: 2
+
+snapshots:
+  - name: snapshot_user_attributes
+    description: | 
+        A snapshot of user attributes to track changes of user_retained_4_weeks column over time.
+        This snapshot is to be used to know when a user has been flagged as retained.

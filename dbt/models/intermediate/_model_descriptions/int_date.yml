@@ -1,0 +1,18 @@
+version: 2
+
+models:
+  - name: int_date
+    description: |
+      Date spine model that holds dates from default_start_date to default_end_date (set in dbt_project.yml).
+    config:
+      contract:
+        enforced: true
+
+    columns:
+      - name: date_day
+        data_type: date
+        description: |
+          {{ doc("int_date__date_day") }}
+        data_tests:
+          - not_null
+          - unique

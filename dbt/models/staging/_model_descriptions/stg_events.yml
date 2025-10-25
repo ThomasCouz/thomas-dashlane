@@ -1,0 +1,44 @@
+version: 2
+
+models:
+  - name: stg_events
+    description: |
+      Staging model for the `events` source table.
+    config:
+      contract:
+        enforced: true
+
+    columns:
+      - name: event_id
+        data_type: varchar
+        description: |
+          {{ doc("stg_events__event_id") }}
+        data_tests:
+          - not_null
+          - unique
+
+      - name: event_name
+        data_type: varchar
+        description: |
+          {{ doc("stg_events__event_name") }}
+        data_tests:
+          - not_null
+          - accepted_values:
+              values: ['add_new_password_to_vault', 'add_new_personal_document_to_vault', 'generate_password',
+                       'add_new_payment_method_to_vault', 'perform_autofill', 'log_in_to_dashlane']
+
+      - name: user_id
+        data_type: varchar
+        description: |
+          {{ doc("stg_user_attributes__user_id") }}
+        data_tests:
+          - relationships:
+              to: ref('stg_user_attributes')
+              field: user_id
+
+      - name: event_at
+        data_type: timestamptz
+        description: |
+          {{ doc("stg_events__event_at") }}
+        data_tests:
+          - not_null
