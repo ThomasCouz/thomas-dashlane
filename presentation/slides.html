@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Engagement Driver Presentation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            overscroll-behavior: none;
+        }
+        .slide {
+            width: 100%;
+            height: 100vh;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 4rem;
+            box-sizing: border-box;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transition: opacity 0.4s ease-in-out;
+        }
+        .slide.active {
+            display: flex;
+            opacity: 1;
+            z-index: 10;
+        }
+        .slide-content {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .nav-button {
+            position: fixed;
+            bottom: 2rem;
+            z-index: 100;
+            padding: 0.75rem 1.5rem;
+            background-color: white;
+            color: #334155;
+            border: 1px solid #cbd5e1;
+            border-radius: 9999px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+        }
+        .nav-button:hover {
+            background-color: #f8fafc;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
+        .nav-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        #prev {
+            left: 2rem;
+        }
+        #next {
+            right: 2rem;
+        }
+        .slide-number {
+            position: fixed;
+            bottom: 2.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 50;
+            font-size: 0.875rem;
+            color: #64748b;
+        }
+
+        /* Icons */
+        .icon {
+            width: 1.5rem;
+            height: 1.5rem;
+            stroke-width: 2;
+        }
+        .icon-lg {
+            width: 3rem;
+            height: 3rem;
+            stroke-width: 2;
+        }
+        .icon-xl {
+            width: 4rem;
+            height: 4rem;
+            stroke-width: 1.5;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 overflow-hidden">
+
+    <svg width="0" height="0" style="display:none;">
+        <symbol id="icon-trending-up" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></symbol>
+        <symbol id="icon-users" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></symbol>
+        <symbol id="icon-database-zap" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M3 5V19A9 3 0 0 0 15 21.84"></path><path d="M21 5V8"></path><path d="M3 12A9 3 0 0 0 14.59 14.87"></path><path d="M21 12L18 17H22L19 22"></path></symbol>
+        <symbol id="icon-calendar-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line><path d="m9 16 2 2 4-4"></path></symbol>
+        <symbol id="icon-bar-chart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="20" x2="12" y2="10"></line><line x1="18" y1="20" x2="18" y2="4"></line><line x1="6" y1="20" x2="6" y2="16"></line></symbol>
+        <symbol id="icon-help-circle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></symbol>
+        <symbol id="icon-repeat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 2.1l4 4-4 4"></path><path d="M3 12.6v-1.2a4.8 4.8 0 0 1 4.8-4.8h11.4"></path><path d="M7 21.9l-4-4 4-4"></path><path d="M21 11.4v1.2a4.8 4.8 0 0 1-4.8 4.8H4.8"></path></symbol>
+        <symbol id="icon-monitor-play" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m10 7 5 5-5 5V7Z"></path><rect x="2" y="3" width="20" height="14" rx="2"></rect><path d="M12 17v4"></path><path d="M8 21h8"></path></symbol>
+        <symbol id="icon-shield-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="m9 12 2 2 4-4"></path></symbol>
+        <symbol id="icon-user-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="17" y1="11" x2="23" y2="11"></line></symbol>
+        <symbol id="icon-chevrons-up" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 11 12 6 7 11"></polyline><polyline points="17 18 12 13 7 18"></polyline></symbol>
+        <symbol id="icon-smartphone-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 8H4a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-4"></path><path d="M10 10l10 10"></path><path d="M17 17a2 2 0 0 1-2 2H8"></path><path d="M16 4h2a2 2 0 0 1 2 2v4"></path><path d="M16 10v.01"></path><path d="M22 10v.01"></path></symbol>
+        <symbol id="icon-monitor-up" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 10 3-3 3 3"></path><path d="M12 13V7"></path><rect x="2" y="3" width="20" height="14" rx="2"></rect><path d="M12 17v4"></path><path d="M8 21h8"></path></symbol>
+        <symbol id="icon-box" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></symbol>
+        <symbol id="icon-key" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"></path></symbol>
+        <symbol id="icon-file-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="12" y1="18" x2="12" y2="12"></line><line x1="9" y1="15" x2="15" y2="15"></line></symbol>
+        <symbol id="icon-target" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></symbol>
+        <symbol id="icon-archive" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="5" rx="2" ry="2"></rect><path d="M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8"></path><line x1="10" y1="12" x2="14" y2="12"></line></symbol>
+        <symbol id="icon-wrench" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></symbol>
+        <symbol id="icon-calendar-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 7.5V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h3.5"></path><path d="M16 2v4"></path><path d="M8 2v4"></path><path d="M3 10h18"></path><path d="M18 18.5a4.5 4.5 0 0 0-4.5-4.5 4.5 4.5 0 1 0 0 9 4.5 4.5 0 0 0 4.5-4.5Z"></path><path d="M18 16.5v2l1 1"></path></symbol>
+        <symbol id="icon-flask" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6"></path><path d="M10 9l-2 9.38A2 2 0 0 0 9.87 21h4.27a2 2 0 0 0 1.87-2.62L14 9"></path><path d="M6 3h12"></path></symbol>
+        <symbol id="icon-milestone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22V12"></path><path d="M12 12V2"></path><path d="M12 2L4.5 5.5M12 2l7.5 3.5"></path><path d="M12 12l-7.5 3.5L12 19l7.5-3.5L12 12"></path></symbol>
+        <symbol id="icon-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></symbol>
+        <symbol id="icon-check-circle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></symbol>
+        <symbol id="icon-award" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 22 12 17 17 22 15.79 13.88"></polyline></symbol>
+        <symbol id="icon-credit-card" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></symbol>
+    </svg>
+
+    <section class="slide active bg-gradient-to-br from-blue-600 to-indigo-800 text-white text-center">
+        <div class="slide-content">
+            <h1 class="text-5xl md:text-7xl font-bold mb-4">Identifying Early Engagement Drivers</h1>
+            <p class="text-2xl md:text-3xl font-light opacity-90">to Boost Trial Conversion</p>
+            <p class="mt-8 text-lg opacity-75">Data-Driven Insights for B2C Growth</p>
+            <p class="mt-4 text-base opacity-60">A Take-Home Assignment by Thomas for Dashlane</p>
+        </div>
+    </section>
+
+    <section class="slide bg-white">
+        <div class="slide-content">
+            <h2 class="text-4xl font-bold text-gray-800 text-center mb-12">The Challenge & The Goal</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-gray-50 p-6 rounded-2xl shadow-sm border border-gray-200">
+                    <svg class="icon-lg text-blue-600 mb-4"><use href="#icon-trending-up"></use></svg>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">Business Goal</h3>
+                    <p class="text-gray-600">Boost B2C revenue by improving the user onboarding flow.</p>
+                </div>
+                <div class="bg-gray-50 p-6 rounded-2xl shadow-sm border border-gray-200">
+                    <svg class="icon-lg text-blue-600 mb-4"><use href="#icon-users"></use></svg>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">Our Mission</h3>
+                    <p class="text-gray-600">Collaborate with Product & Marketing to increase trial conversion.</p>
+                </div>
+                <div class="bg-gray-50 p-6 rounded-2xl shadow-sm border border-gray-200">
+                    <svg class="icon-lg text-blue-600 mb-4"><use href="#icon-database-zap"></use></svg>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">Data Goal</h3>
+                    <p class="text-gray-600">Identify key retention drivers in a user's first 7 days.</p>
+                </div>
+            </div>
+            <div class="mt-12 text-center">
+                <div class="inline-flex items-center bg-blue-100 text-blue-800 p-6 rounded-2xl shadow-lg">
+                    <svg class="icon-lg text-blue-700 mr-6"><use href="#icon-calendar-check"></use></svg>
+                    <div>
+                        <div class="text-lg font-medium">Key Metric & Baseline</div>
+                        <p class="text-3xl font-bold">30% 4-Week Retention</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide bg-gray-50">
+        <div class="slide-content">
+            <h2 class="text-4xl font-bold text-gray-800 text-center mb-16">Key Questions We Investigated</h2>
+            <div class="space-y-8 max-w-3xl mx-auto">
+                <div class="flex items-start space-x-6 bg-white p-8 rounded-2xl shadow-lg border border-gray-200">
+                    <svg class="icon-lg text-indigo-600 flex-shrink-0 mt-1"><use href="#icon-help-circle"></use></svg>
+                    <p class="text-2xl text-gray-700">Which user behaviors in the first 7 days have the biggest impact on 4-week retention?</p>
+                </div>
+                <div class="flex items-start space-x-6 bg-white p-8 rounded-2xl shadow-lg border border-gray-200">
+                    <svg class="icon-lg text-indigo-600 flex-shrink-0 mt-1"><use href="#icon-help-circle"></use></svg>
+                    <p class="text-2xl text-gray-700">Which sign-up platforms are most (and least) successful?</p>
+                </div>
+                <div class="flex items-start space-x-6 bg-white p-8 rounded-2xl shadow-lg border border-gray-200">
+                    <svg class="icon-lg text-indigo-600 flex-shrink-0 mt-1"><use href="#icon-help-circle"></use></svg>
+                    <p class="text-2xl text-gray-700">How do frequency (e.g., #days) and volume (e.g., #passwords) compare as drivers?</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide bg-white">
+        <div class="slide-content">
+            <h2 class="text-4xl font-bold text-gray-800 text-center mb-4">Summary of Findings</h2>
+            <p class="text-2xl text-gray-500 text-center mb-16">The "TL;DR"</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="text-center bg-white p-8 rounded-2xl shadow-xl border-t-4 border-blue-500">
+                    <svg class="icon-xl text-blue-500 mx-auto mb-6"><use href="#icon-repeat"></use></svg>
+                    <h3 class="text-3xl font-bold text-gray-900 mb-3">Habit is King</h3>
+                    <p class="text-lg text-gray-600">Repeatedly logging in (4+ days) is the single strongest driver of retention.</p>
+                </div>
+                <div class="text-center bg-white p-8 rounded-2xl shadow-xl border-t-4 border-teal-500">
+                    <svg class="icon-xl text-teal-500 mx-auto mb-6"><use href="#icon-monitor-play"></use></svg>
+                    <h3 class="text-3xl font-bold text-gray-900 mb-3">Web Onboarding Wins</h3>
+                    <p class="text-lg text-gray-600">Users signing up on 'web' are <span class="font-bold">2x more likely</span> to be retained.</p>
+                </div>
+                <div class="text-center bg-white p-8 rounded-2xl shadow-xl border-t-4 border-indigo-500">
+                    <svg class="icon-xl text-indigo-500 mx-auto mb-6"><use href="#icon-shield-check"></use></svg>
+                    <h3 class="text-3xl font-bold text-gray-900 mb-3">Core Value Matters</h3>
+                    <p class="text-lg text-gray-600">Adding passwords and documents are powerful, predictive actions.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide bg-white">
+        <div class="slide-content">
+            <h2 class="text-4xl font-bold text-gray-800 text-center mb-12">Insight 1: Habitual login is the strongest driver.</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div class="bg-gray-50 p-10 rounded-2xl shadow-lg border border-gray-200">
+                    <h3 class="text-xl font-semibold text-gray-500 uppercase tracking-wide mb-4">The Data</h3>
+                    <p class="text-6xl font-bold text-blue-600 mb-4">80%+ <span class="text-4xl text-gray-700">Retention</span></p>
+                    <p class="text-2xl text-gray-600">...for users who log in on <span class="font-bold">4+ different days</span> in their first week (vs. 30% avg).</p>
+
+                    <hr class="my-8 border-gray-300">
+
+                    <h3 class="text-xl font-semibold text-gray-500 uppercase tracking-wide mb-4">The Model</h3>
+                    <p class="text-6xl font-bold text-blue-600 mb-4">2x <span class="text-4xl text-gray-700">Odds</span></p>
+                    <p class="text-2xl text-gray-600">...of retention for <span class="font-bold">every additional day</span> a user logs in.</p>
+                </div>
+                <div>
+                    <img src="images/retention_rate_vs_nb_days_with_login.png" alt="retention_rate_vs_nb_days_with_login" class="rounded-2xl shadow-lg border border-gray-200">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide bg-white">
+        <div class="slide-content">
+            <h2 class="text-4xl font-bold text-gray-800 text-center mb-12">Insight 2: The 'Web' platform is a massive outlier.</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div class="space-y-8">
+                    <div class="flex items-center bg-gray-50 p-6 rounded-2xl shadow-lg border border-gray-200">
+                        <svg class="icon-xl text-teal-600 mr-6 flex-shrink-0"><use href="#icon-monitor-up"></use></svg>
+                        <div>
+                            <h3 class="text-2xl font-bold text-gray-900">Web Users Convert at 58%</h3>
+                            <p class="text-lg text-gray-600">Compared to just 16% for Android users.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center bg-gray-50 p-6 rounded-2xl shadow-lg border border-gray-200">
+                        <svg class="icon-xl text-teal-600 mr-6 flex-shrink-0"><use href="#icon-chevrons-up"></use></svg>
+                        <div>
+                            <h3 class="text-2xl font-bold text-gray-900">2x More Likely to Retain</h3>
+                            <p class="text-lg text-gray-600">The model shows 'web' signup is a powerful predictor.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center bg-red-50 border-red-200 border p-6 rounded-2xl shadow-lg">
+                        <svg class="icon-xl text-red-600 mr-6 flex-shrink-0"><use href="#icon-box"></use></svg>
+                        <div>
+                            <h3 class="text-2xl font-bold text-red-900">The 'saex' Opportunity</h3>
+                            <p class="text-lg text-red-700">Largest user volume but a low 30% retention. Fixing this is a huge win.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="space-y-8">
+                    <div>
+                        <img src="images/retention_by_user_creation_app_platform.png" alt="retention_by_user_creation_app_platform" class="rounded-2xl shadow-lg border border-gray-200">
+                    </div>
+                    <div>
+                        <img src="images/users_per_app_platform_creation.png" alt="users_per_app_platform_creation" class="rounded-2xl shadow-lg border border-gray-200">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide bg-white">
+        <div class="slide-content">
+            <h2 class="text-4xl font-bold text-gray-800 text-center mb-12">Insight 3: "Building the vault" is a key predictor.</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div class="space-y-8">
+                    <div>
+                        <img src="images/retention_vs_nb_password_added.png" alt="retention_vs_nb_password_added" class="rounded-2xl shadow-lg border border-gray-200">
+                    </div>
+                    <div>
+                        <img src="images/retention_vs_documents_added.png" alt="retention_vs_documents_added" class="rounded-2xl shadow-lg border border-gray-200">
+                    </div>
+                </div>
+                <div>
+                    <div class="bg-gray-50 p-8 rounded-2xl shadow-lg border border-gray-200">
+                        <h3 class="text-xl font-semibold text-gray-500 uppercase tracking-wide mb-6">Top "Vault-Building" Drivers (Odds Ratio)</h3>
+                        <div class="space-y-5">
+                            <div class="flex items-center text-xl">
+                                <svg class="icon text-indigo-600 mr-4 flex-shrink-0"><use href="#icon-key"></use></svg>
+                                <span class="font-bold text-gray-800">1.93x</span>
+                                <span class="text-gray-600 ml-3"># Days add new password</span>
+                            </div>
+                            <div class="flex items-center text-xl">
+                                <svg class="icon text-indigo-600 mr-4 flex-shrink-0"><use href="#icon-credit-card"></use></svg>
+                                <span class="font-bold text-gray-800">1.44x</span>
+                                <span class="text-gray-600 ml-3">Has added new payment method </span>
+                            </div>
+                            <div class="flex items-center text-xl">
+                                <svg class="icon text-indigo-600 mr-4 flex-shrink-0"><use href="#icon-file-plus"></use></svg>
+                                <span class="font-bold text-gray-800">1.28x</span>
+                                <span class="text-gray-600 ml-3">Has added personal document</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-8 bg-indigo-100 text-indigo-900 p-6 rounded-2xl text-center">
+                        <p class="text-2xl font-medium">The "Aha!" moment isn't just <span class="font-bold">using</span> autofill, it's <span class="font-bold">investing</span> in the vault.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide bg-gray-50">
+        <div class="slide-content">
+            <h2 class="text-4xl font-bold text-gray-800 text-center mb-16">Actionable Recommendations: <span class="text-blue-600">Marketing</span></h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div class="bg-white p-8 rounded-2xl shadow-2xl transform hover:scale-105 transition-transform duration-300">
+                    <svg class="icon-lg text-blue-600 mb-6"><use href="#icon-target"></use></svg>
+                    <h3 class="text-3xl font-bold text-gray-900 mb-4">1. Double-down on 'Web'</h3>
+                    <p class="text-lg text-gray-600 mb-6">Focus acquisition spend on campaigns that lead to 'web' sign-ups.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg">
+                        <span class="text-sm font-semibold text-gray-500 uppercase">Metric to Follow</span>
+                        <p class="text-lg font-medium text-gray-800"># New users created from 'web'</p>
+                    </div>
+                </div>
+                <div class="bg-white p-8 rounded-2xl shadow-2xl transform hover:scale-105 transition-transform duration-300">
+                    <svg class="icon-lg text-blue-600 mb-6"><use href="#icon-archive"></use></svg>
+                    <h3 class="text-3xl font-bold text-gray-900 mb-4">2. Target the "Vault-Builder"</h3>
+                    <p class="text-lg text-gray-600 mb-6">Launch campaigns for users who need to store documents or payment methods, not just passwords.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg">
+                        <span class="text-sm font-semibold text-gray-500 uppercase">Metric to Follow</span>
+                        <p class="text-lg font-medium text-gray-800">% of new users adding doc/payment in W1</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide bg-gray-50">
+        <div class="slide-content">
+            <h2 class="text-4xl font-bold text-gray-800 text-center mb-16">Actionable Recommendations: <span class="text-indigo-600">Product</span></h2>
+            <div class="max-w-3xl mx-auto bg-white p-12 rounded-2xl shadow-2xl transform hover:scale-105 transition-transform duration-300">
+                <svg class="icon-lg text-indigo-600 mb-6"><use href="#icon-wrench"></use></svg>
+                <h3 class="text-3xl font-bold text-gray-900 mb-4">1. Fix Non-Web Onboarding</h3>
+                <p class="text-lg text-gray-600 mb-6">Prioritize deep-dives of the 'android' (lowest retention) and 'saex' (highest volume) onboarding flows. <span class="font-bold">What does 'web' do right that they don't?</span></p>
+                <div class="bg-gray-100 p-4 rounded-lg">
+                    <span class="text-sm font-semibold text-gray-500 uppercase">Metric to Follow</span>
+                    <p class="text-lg font-medium text-gray-800">% Retention rate for 'android' and 'saex' new users</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide bg-gray-50">
+        <div class="slide-content">
+            <h2 class="text-4xl font-bold text-gray-800 text-center mb-16">Actionable Recommendations: <span class="text-indigo-600">Product</span></h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div class="bg-white p-8 rounded-2xl shadow-2xl transform hover:scale-105 transition-transform duration-300">
+                    <svg class="icon-lg text-indigo-600 mb-6"><use href="#icon-calendar-clock"></use></svg>
+                    <h3 class="text-3xl font-bold text-gray-900 mb-4">2. Drive Habit</h3>
+                    <p class="text-lg text-gray-600 mb-4">The first 7 days are a race to build a habit.</p>
+                    <ul class="list-disc list-inside text-lg text-gray-600 space-y-2 mb-6">
+                        <li><span class="font-semibold">Gamify it:</span> "You're on a 2-day streak!"</li>
+                        <li><span class="font-semibold">Trigger prompts</span> on Day 3/4 to add more.</li>
+                    </ul>
+                    <div class="bg-gray-100 p-4 rounded-lg">
+                        <span class="text-sm font-semibold text-gray-500 uppercase">Metric to Follow</span>
+                        <p class="text-lg font-medium text-gray-800">% New users logging in 4+ days in W1</p>
+                    </div>
+                </div>
+                <div class="bg-white p-8 rounded-2xl shadow-2xl transform hover:scale-105 transition-transform duration-300">
+                    <svg class="icon-lg text-indigo-600 mb-6"><use href="#icon-database-zap"></use></svg>
+                    <h3 class="text-3xl font-bold text-gray-900 mb-4">3. Guide Users to "Invest"</h3>
+                    <p class="text-lg text-gray-600 mb-12">Actively prompt users to add documents and payment methods during onboarding, not just passwords.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg">
+                        <span class="text-sm font-semibold text-gray-500 uppercase">Metric to Follow</span>
+                        <p class="text-lg font-medium text-gray-800">% New users adding doc/payment in W1</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide bg-white">
+        <div class="slide-content max-w-3xl mx-auto">
+            <h2 class="text-4xl font-bold text-gray-800 text-center mb-16">Next Steps</h2>
+            <div class="space-y-8">
+                <div class="flex items-center bg-gray-50 p-8 rounded-2xl shadow-lg border border-gray-200">
+                    <svg class="icon-lg text-gray-700 flex-shrink-0 mr-8"><use href="#icon-flask"></use></svg>
+                    <div>
+                        <h3 class="text-2xl font-bold text-gray-900 mb-1">Hypothesis Testing</h3>
+                        <p class="text-lg text-gray-600">Formally A/B test proposed product changes (e.g., new 'saex' onboarding flow).</p>
+                    </div>
+                </div>
+                <div class="flex items-center bg-gray-50 p-8 rounded-2xl shadow-lg border border-gray-200">
+                    <svg class="icon-lg text-gray-700 flex-shrink-0 mr-8"><use href="#icon-milestone"></use></svg>
+                    <div>
+                        <h3 class="text-2xl font-bold text-gray-900 mb-1">Sequence Analysis</h3>
+                        <p class="text-lg text-gray-600">Are there common "paths" or sequences of events that retained users take?</p>
+                    </div>
+                </div>
+                <div class="flex items-center bg-gray-50 p-8 rounded-2xl shadow-lg border border-gray-200">
+                    <svg class="icon-lg text-gray-700 flex-shrink-0 mr-8"><use href="#icon-search"></use></svg>
+                    <div>
+                        <h3 class="text-2xl font-bold text-gray-900 mb-1">Deeper Dive on 'Web'</h3>
+                        <p class="text-lg text-gray-600">Why is it so successful? Is it the flow, or does it attract a different type of user?</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide bg-gradient-to-br from-gray-700 to-gray-900 text-white text-center">
+        <div class="slide-content">
+            <h1 class="text-7xl font-bold mb-6">Thank You</h1>
+            <p class="text-4xl font-light opacity-90">Q&A</p>
+        </div>
+    </section>
+
+
+    <button id="prev" class="nav-button" onclick="changeSlide(-1)">&#8592; Prev</button>
+    <button id="next" class="nav-button" onclick="changeSlide(1)">Next &#8594;</button>
+    <div id="slide-number" class="slide-number"></div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        const prevButton = document.getElementById('prev');
+        const nextButton = document.getElementById('next');
+        const slideNumberElement = document.getElementById('slide-number');
+
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                if (i === index) {
+                    slide.classList.add('active');
+                } else {
+                    slide.classList.remove('active');
+                }
+            });
+
+            // Update slide number
+            slideNumberElement.textContent = `${index + 1} / ${totalSlides}`;
+
+            // Update button states
+            if (currentSlide === 0) {
+                prevButton.disabled = true;
+            } else {
+                prevButton.disabled = false;
+            }
+
+            if (currentSlide === totalSlides - 1) {
+                nextButton.disabled = true;
+            } else {
+                nextButton.disabled = false;
+            }
+        }
+
+        function changeSlide(direction) {
+            currentSlide += direction;
+            if (currentSlide < 0) {
+                currentSlide = 0;
+            }
+            if (currentSlide >= totalSlides) {
+                currentSlide = totalSlides - 1;
+            }
+            showSlide(currentSlide);
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                changeSlide(1);
+            } else if (e.key === 'ArrowLeft') {
+                changeSlide(-1);
+            }
+        });
+
+        // Initial setup
+        showSlide(currentSlide);
+    </script>
+</body>
+</html>
