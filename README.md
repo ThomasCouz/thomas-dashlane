@@ -107,3 +107,9 @@ The goal with this model is to have a standard aggregation at the daily and user
     CNT_ADD_NEW_PAYMENT_METHOD_TO_VAULT_EVENTS_F7D        1.196802
     ```
 
+## 5. Presentation
+
+**[A presentation](https://github.com/ThomasCouz/thomas-dashlane/tree/main/presentation)** has been created for non-technical stakeholders (marketing and product team), that aims at presenting the key findings from the analysis as well as some recommendations for them. <br>
+
+![presentation](https://github.com/user-attachments/assets/b2cda3f8-e78d-4c24-a13d-e02e245bcebc)
+
