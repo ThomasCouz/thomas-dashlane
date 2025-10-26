@@ -5,11 +5,12 @@
 ) }}
 
 with final as (
-select event_id,
-       event_name,
-       user_id,
-       event_at
-from {{ ref('stg_events') }}
+    select
+        event_id,
+        event_name,
+        user_id,
+        event_at
+    from {{ ref('stg_events') }}
 )
 
 select *

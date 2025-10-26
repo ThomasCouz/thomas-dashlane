@@ -102,4 +102,3 @@ Here are the results of the `run_logistic_regression_model` command:
                       HAS_PERFORM_AUTOFILL_F7D    1.244185
 CNT_ADD_NEW_PAYMENT_METHOD_TO_VAULT_EVENTS_F7D    1.196802
 ```
-

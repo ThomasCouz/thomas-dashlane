@@ -1,10 +1,5 @@
 /*
-This macro is utilized to create the schema output for our dbt models.
-In some cases, we leverage the default schema to concatenate with the schema we specify.
-For the cases below, we have altered this to EXCLUDE the default dbt_ prefix:
-    1) files that start with the stg_ prefix
-    2) files that start with the base_gainsight prefix
-    3) files in the transformation/intermediate directory
+Overwrite of the default dbt generate_schema_name macro so the dbt_prefix is not added by default.
 */
 
 {% macro generate_schema_name(custom_schema_name, node) -%}

@@ -33,6 +33,7 @@ agg_events as (
         user_id,
         count(*) as cnt_total_events,
         {% for event_name in get_events_list() %}
+            -- How many events of this type were performed by the user on that date?
             count(case when event_name = '{{ event_name }}' then 1 end) as cnt_{{ event_name }}_events
             {% if not loop.last %},{% endif %}
         {% endfor %}
@@ -55,9 +56,9 @@ final as (
         {% endfor %}
 
     from date_spine as ds
-    inner join {{ ref('stg_user_attributes') }} as u on ds.date_day >= u.user_created_date
-    left join agg_events as ae
-        on ds.date_day = ae.event_date and u.user_id = ae.user_id
+        -- Generate one row per user per day since user creation
+        inner join {{ ref('stg_user_attributes') }} as u on ds.date_day >= u.user_created_date
+        left join agg_events as ae on ds.date_day = ae.event_date and u.user_id = ae.user_id
 )
 
 select *

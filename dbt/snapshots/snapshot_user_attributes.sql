@@ -8,9 +8,9 @@
 )
 }}
 
-select
-    user_id,
-    user_retained_4_weeks
-from {{ source('csv_files', 'user_attributes') }}
+    select
+        user_id,
+        user_retained_4_weeks
+    from {{ source('csv_files', 'user_attributes') }}
 
 {% endsnapshot %}

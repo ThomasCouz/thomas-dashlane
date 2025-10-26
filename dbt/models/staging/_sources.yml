@@ -7,7 +7,7 @@ sources:
 
     tables:
       - name: events
-        # obviously the freshness test fails at the moment as we only have static csv files
+        # the freshness test fails at the moment as we only have static csv files that contains old data
         freshness:
           warn_after: { count: 1, period: hour }
           error_after: { count: 2, period: hour }
@@ -15,7 +15,7 @@ sources:
         loaded_at_field: event_at::timestamp # ideally we would prefer to use a system field like _etl_loaded_at
 
       - name: user_attributes
-        # obviously the freshness test fails at the moment as we only have static csv files
+        # the freshness test fails at the moment as we only have static csv files that contains old data
         freshness:
           warn_after: { count: 1, period: day }
           error_after: { count: 2, period: day }
