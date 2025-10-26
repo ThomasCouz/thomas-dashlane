@@ -145,7 +145,6 @@ def log_feature_coefficients(clf: Pipeline, impact_threshold: float) -> None:
         log.warning(f"Could not extract feature coefficients: {e}")
 
 
-# --- Main Execution ---
 
 def parse_args() -> argparse.Namespace:
     """
