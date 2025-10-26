@@ -91,10 +91,37 @@
             height: 4rem;
             stroke-width: 1.5;
         }
+
+        /* Table styles for appendix */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 2rem;
+        }
+        .data-table th,
+        .data-table td {
+            border: 1px solid #e2e8f0;
+            padding: 0.75rem 1.25rem;
+            text-align: left;
+        }
+        .data-table th {
+            background-color: #f8fafc;
+            font-weight: 600;
+            color: #475569;
+        }
+        .data-table td {
+            color: #334155;
+        }
+        .data-table td:first-child {
+            font-weight: 500;
+            color: #1e293b;
+            width: 40%;
+        }
     </style>
 </head>
 <body class="bg-gray-50 overflow-hidden">
 
+    <!-- Icon Definitions -->
     <svg width="0" height="0" style="display:none;">
         <symbol id="icon-trending-up" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></symbol>
         <symbol id="icon-users" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></symbol>
@@ -124,15 +151,17 @@
         <symbol id="icon-credit-card" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></symbol>
     </svg>
 
+    <!-- Slide 1: Title -->
     <section class="slide active bg-gradient-to-br from-blue-600 to-indigo-800 text-white text-center">
         <div class="slide-content">
             <h1 class="text-5xl md:text-7xl font-bold mb-4">Identifying Early Engagement Drivers</h1>
             <p class="text-2xl md:text-3xl font-light opacity-90">to Boost Trial Conversion</p>
             <p class="mt-8 text-lg opacity-75">Data-Driven Insights for B2C Growth</p>
-            <p class="mt-4 text-base opacity-60">A Take-Home Assignment by Thomas for Dashlane</p>
+            <p class="mt-4 text-base opacity-60">A Take-Home Assignment by Thomas Couzineau for Dashlane</p>
         </div>
     </section>
 
+    <!-- Slide 2: The Challenge & The Goal -->
     <section class="slide bg-white">
         <div class="slide-content">
             <h2 class="text-4xl font-bold text-gray-800 text-center mb-12">The Challenge & The Goal</h2>
@@ -165,30 +194,31 @@
         </div>
     </section>
 
+    <!-- Slide 3: Key Questions -->
     <section class="slide bg-gray-50">
         <div class="slide-content">
-            <h2 class="text-4xl font-bold text-gray-800 text-center mb-16">Key Questions We Investigated</h2>
+            <h2 class="text-4xl font-bold text-gray-800 text-center mb-16">Key Questions Investigated</h2>
             <div class="space-y-8 max-w-3xl mx-auto">
                 <div class="flex items-start space-x-6 bg-white p-8 rounded-2xl shadow-lg border border-gray-200">
                     <svg class="icon-lg text-indigo-600 flex-shrink-0 mt-1"><use href="#icon-help-circle"></use></svg>
-                    <p class="text-2xl text-gray-700">Which user behaviors in the first 7 days have the biggest impact on 4-week retention?</p>
+                    <p class="text-2xl text-gray-700">Which <span class="font-bold">user behaviors</span> in the first 7 days have the biggest impact on 4-week retention?</p>
                 </div>
                 <div class="flex items-start space-x-6 bg-white p-8 rounded-2xl shadow-lg border border-gray-200">
                     <svg class="icon-lg text-indigo-600 flex-shrink-0 mt-1"><use href="#icon-help-circle"></use></svg>
-                    <p class="text-2xl text-gray-700">Which sign-up platforms are most (and least) successful?</p>
+                    <p class="text-2xl text-gray-700">Which <span class="font-bold">sign-up platforms</span> are most (and least) successful?</p>
                 </div>
                 <div class="flex items-start space-x-6 bg-white p-8 rounded-2xl shadow-lg border border-gray-200">
                     <svg class="icon-lg text-indigo-600 flex-shrink-0 mt-1"><use href="#icon-help-circle"></use></svg>
-                    <p class="text-2xl text-gray-700">How do frequency (e.g., #days) and volume (e.g., #passwords) compare as drivers?</p>
+                    <p class="text-2xl text-gray-700">How do <span class="font-bold">frequency</span> (#days) and <span class="font-bold">volume</span> (#events) compare as drivers?</p>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- Slide 4: Summary of Findings -->
     <section class="slide bg-white">
         <div class="slide-content">
             <h2 class="text-4xl font-bold text-gray-800 text-center mb-4">Summary of Findings</h2>
-            <p class="text-2xl text-gray-500 text-center mb-16">The "TL;DR"</p>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div class="text-center bg-white p-8 rounded-2xl shadow-xl border-t-4 border-blue-500">
                     <svg class="icon-xl text-blue-500 mx-auto mb-6"><use href="#icon-repeat"></use></svg>
@@ -198,17 +228,18 @@
                 <div class="text-center bg-white p-8 rounded-2xl shadow-xl border-t-4 border-teal-500">
                     <svg class="icon-xl text-teal-500 mx-auto mb-6"><use href="#icon-monitor-play"></use></svg>
                     <h3 class="text-3xl font-bold text-gray-900 mb-3">Web Onboarding Wins</h3>
-                    <p class="text-lg text-gray-600">Users signing up on 'web' are <span class="font-bold">2x more likely</span> to be retained.</p>
+                    <p class="text-lg text-gray-600">Users signing up on web are <span class="font-bold">2x more likely</span> to be retained.</p>
                 </div>
                 <div class="text-center bg-white p-8 rounded-2xl shadow-xl border-t-4 border-indigo-500">
                     <svg class="icon-xl text-indigo-500 mx-auto mb-6"><use href="#icon-shield-check"></use></svg>
-                    <h3 class="text-3xl font-bold text-gray-900 mb-3">Core Value Matters</h3>
-                    <p class="text-lg text-gray-600">Adding passwords and documents are powerful, predictive actions.</p>
+                    <h3 class="text-3xl font-bold text-gray-900 mb-3">Investing in the vault matters</h3>
+                    <p class="text-lg text-gray-600">Adding passwords, documents and payment methods are powerful, predictive actions.</p>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- Slide 5: Insight 1 -->
     <section class="slide bg-white">
         <div class="slide-content">
             <h2 class="text-4xl font-bold text-gray-800 text-center mb-12">Insight 1: Habitual login is the strongest driver.</h2>
@@ -231,9 +262,10 @@
         </div>
     </section>
 
+    <!-- Slide 6: Insight 2 -->
     <section class="slide bg-white">
         <div class="slide-content">
-            <h2 class="text-4xl font-bold text-gray-800 text-center mb-12">Insight 2: The 'Web' platform is a massive outlier.</h2>
+            <h2 class="text-4xl font-bold text-gray-800 text-center mb-12">Insight 2: The web platform is a massive outlier.</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
                 <div class="space-y-8">
                     <div class="flex items-center bg-gray-50 p-6 rounded-2xl shadow-lg border border-gray-200">
@@ -270,6 +302,7 @@
         </div>
     </section>
 
+    <!-- Slide 7: Insight 3 -->
     <section class="slide bg-white">
         <div class="slide-content">
             <h2 class="text-4xl font-bold text-gray-800 text-center mb-12">Insight 3: "Building the vault" is a key predictor.</h2>
@@ -288,40 +321,41 @@
                         <div class="space-y-5">
                             <div class="flex items-center text-xl">
                                 <svg class="icon text-indigo-600 mr-4 flex-shrink-0"><use href="#icon-key"></use></svg>
-                                <span class="font-bold text-gray-800">1.93x</span>
-                                <span class="text-gray-600 ml-3"># Days add new password</span>
+                                <span class="font-bold text-gray-800">+93%</span>
+                                <span class="text-gray-600 ml-3">Per additional day added new password</span>
                             </div>
                             <div class="flex items-center text-xl">
                                 <svg class="icon text-indigo-600 mr-4 flex-shrink-0"><use href="#icon-credit-card"></use></svg>
-                                <span class="font-bold text-gray-800">1.44x</span>
-                                <span class="text-gray-600 ml-3">Has added new payment method </span>
+                                <span class="font-bold text-gray-800">+44%</span>
+                                <span class="text-gray-600 ml-3">If payment method is added</span>
                             </div>
                             <div class="flex items-center text-xl">
                                 <svg class="icon text-indigo-600 mr-4 flex-shrink-0"><use href="#icon-file-plus"></use></svg>
-                                <span class="font-bold text-gray-800">1.28x</span>
-                                <span class="text-gray-600 ml-3">Has added personal document</span>
+                                <span class="font-bold text-gray-800">+28%</span>
+                                <span class="text-gray-600 ml-3">If personal document is added</span>
                             </div>
                         </div>
                     </div>
                     <div class="mt-8 bg-indigo-100 text-indigo-900 p-6 rounded-2xl text-center">
-                        <p class="text-2xl font-medium">The "Aha!" moment isn't just <span class="font-bold">using</span> autofill, it's <span class="font-bold">investing</span> in the vault.</p>
+                        <p class="text-2xl font-medium">The aha moment isn't just <span class="font-bold">using</span> autofill, it's <span class="font-bold">investing</span> in the vault.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- Slide 8: Reco (Marketing) -->
     <section class="slide bg-gray-50">
         <div class="slide-content">
             <h2 class="text-4xl font-bold text-gray-800 text-center mb-16">Actionable Recommendations: <span class="text-blue-600">Marketing</span></h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
                 <div class="bg-white p-8 rounded-2xl shadow-2xl transform hover:scale-105 transition-transform duration-300">
                     <svg class="icon-lg text-blue-600 mb-6"><use href="#icon-target"></use></svg>
-                    <h3 class="text-3xl font-bold text-gray-900 mb-4">1. Double-down on 'Web'</h3>
-                    <p class="text-lg text-gray-600 mb-6">Focus acquisition spend on campaigns that lead to 'web' sign-ups.</p>
+                    <h3 class="text-3xl font-bold text-gray-900 mb-4">1. Double-down on web users</h3>
+                    <p class="text-lg text-gray-600 mb-6">Focus acquisition spend on campaigns that lead to web sign-ups.</p>
                     <div class="bg-gray-100 p-4 rounded-lg">
                         <span class="text-sm font-semibold text-gray-500 uppercase">Metric to Follow</span>
-                        <p class="text-lg font-medium text-gray-800"># New users created from 'web'</p>
+                        <p class="text-lg font-medium text-gray-800">#New users created from web</p>
                     </div>
                 </div>
                 <div class="bg-white p-8 rounded-2xl shadow-2xl transform hover:scale-105 transition-transform duration-300">
@@ -330,28 +364,30 @@
                     <p class="text-lg text-gray-600 mb-6">Launch campaigns for users who need to store documents or payment methods, not just passwords.</p>
                     <div class="bg-gray-100 p-4 rounded-lg">
                         <span class="text-sm font-semibold text-gray-500 uppercase">Metric to Follow</span>
-                        <p class="text-lg font-medium text-gray-800">% of new users adding doc/payment in W1</p>
+                        <p class="text-lg font-medium text-gray-800">%New users adding doc/payment in W1</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- Slide 9: Reco (Product 1) -->
     <section class="slide bg-gray-50">
         <div class="slide-content">
             <h2 class="text-4xl font-bold text-gray-800 text-center mb-16">Actionable Recommendations: <span class="text-indigo-600">Product</span></h2>
             <div class="max-w-3xl mx-auto bg-white p-12 rounded-2xl shadow-2xl transform hover:scale-105 transition-transform duration-300">
                 <svg class="icon-lg text-indigo-600 mb-6"><use href="#icon-wrench"></use></svg>
-                <h3 class="text-3xl font-bold text-gray-900 mb-4">1. Fix Non-Web Onboarding</h3>
+                <h3 class="text-3xl font-bold text-gray-900 mb-4">1. Fix non-web Onboarding</h3>
                 <p class="text-lg text-gray-600 mb-6">Prioritize deep-dives of the 'android' (lowest retention) and 'saex' (highest volume) onboarding flows. <span class="font-bold">What does 'web' do right that they don't?</span></p>
                 <div class="bg-gray-100 p-4 rounded-lg">
                     <span class="text-sm font-semibold text-gray-500 uppercase">Metric to Follow</span>
-                    <p class="text-lg font-medium text-gray-800">% Retention rate for 'android' and 'saex' new users</p>
+                    <p class="text-lg font-medium text-gray-800">%Retention rate for Android and saex new users</p>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- Slide 10: Reco (Product 2) -->
     <section class="slide bg-gray-50">
         <div class="slide-content">
             <h2 class="text-4xl font-bold text-gray-800 text-center mb-16">Actionable Recommendations: <span class="text-indigo-600">Product</span></h2>
@@ -362,7 +398,7 @@
                     <p class="text-lg text-gray-600 mb-4">The first 7 days are a race to build a habit.</p>
                     <ul class="list-disc list-inside text-lg text-gray-600 space-y-2 mb-6">
                         <li><span class="font-semibold">Gamify it:</span> "You're on a 2-day streak!"</li>
-                        <li><span class="font-semibold">Trigger prompts</span> on Day 3/4 to add more.</li>
+                        <li><span class="font-semibold">Trigger prompts</span> on Day 3/4 to add more passwords</li>
                     </ul>
                     <div class="bg-gray-100 p-4 rounded-lg">
                         <span class="text-sm font-semibold text-gray-500 uppercase">Metric to Follow</span>
@@ -375,13 +411,14 @@
                     <p class="text-lg text-gray-600 mb-12">Actively prompt users to add documents and payment methods during onboarding, not just passwords.</p>
                     <div class="bg-gray-100 p-4 rounded-lg">
                         <span class="text-sm font-semibold text-gray-500 uppercase">Metric to Follow</span>
-                        <p class="text-lg font-medium text-gray-800">% New users adding doc/payment in W1</p>
+                        <p class="text-lg font-medium text-gray-800">%New users adding doc/payment in W1</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- Slide 11: Next Steps -->
     <section class="slide bg-white">
         <div class="slide-content max-w-3xl mx-auto">
             <h2 class="text-4xl font-bold text-gray-800 text-center mb-16">Next Steps</h2>
@@ -411,6 +448,7 @@
         </div>
     </section>
 
+    <!-- Slide 12: Thank You -->
     <section class="slide bg-gradient-to-br from-gray-700 to-gray-900 text-white text-center">
         <div class="slide-content">
             <h1 class="text-7xl font-bold mb-6">Thank You</h1>
@@ -419,6 +457,50 @@
     </section>
 
 
+    <!-- Slide 13: Appendix -->
+    <section class="slide bg-white">
+        <div class="slide-content max-w-4xl mx-auto">
+            <h2 class="text-4xl font-bold text-gray-800 text-center mb-12">Appendix: Feature Engineering</h2>
+            <p class="text-xl text-gray-600 text-center mb-8">Key features selected for the retention model.</p>
+
+            <div class="shadow-lg border border-gray-200 rounded-2xl overflow-hidden">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>User Creation Platform</td>
+                            <td>The app platform used to create the user account (e.g., ios, android, web, saex).</td>
+                        </tr>
+                        <tr>
+                            <td>User has event in W1 </td>
+                            <td>Boolean feature indicating if the user triggered a specific event at least once in the first 7 days. <br><em class="text-gray-500">(This feature exists for all event names).</em></td>
+                        </tr>
+                        <tr>
+                            <td>#Distinct days with event in W1</td>
+                            <td>Total number of distinct days the user triggered a specific event in the first 7 days. <br><em class="text-gray-500">(This feature exists for all event names).</em></td>
+                        </tr>
+                        <tr>
+                            <td>Total #Events in W1</td>
+                            <td>The total count of times a user triggered a specific event in the first 7 days. <br><em class="text-gray-500">(This feature exists for all event names).</em></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="mt-10 bg-gray-50 p-6 rounded-2xl border border-gray-200">
+                <p class="text-gray-600 mt-2">Another candidate feature considered was <span class="font-medium text-gray-800">"Number of days to first event"</span>. <br>
+                    This was ultimately not selected as it was highly correlated with the <span class="font-medium text-gray-800">"#Distinct days with event"</span> features.</p>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Navigation -->
     <button id="prev" class="nav-button" onclick="changeSlide(-1)">&#8592; Prev</button>
     <button id="next" class="nav-button" onclick="changeSlide(1)">Next &#8594;</button>
     <div id="slide-number" class="slide-number"></div>
@@ -471,8 +553,11 @@
         // Keyboard navigation
         document.addEventListener('keydown', (e) => {
             if (e.key === 'ArrowRight' || e.key === ' ') {
+                // Prevent space bar from scrolling
+                e.preventDefault();
                 changeSlide(1);
             } else if (e.key === 'ArrowLeft') {
+                e.preventDefault();
                 changeSlide(-1);
             }
         });
@@ -482,4 +567,3 @@
     </script>
 </body>
 </html>
-
